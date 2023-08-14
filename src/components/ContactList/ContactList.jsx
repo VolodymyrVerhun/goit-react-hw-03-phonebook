@@ -10,15 +10,16 @@ export default class ContactList extends Component {
 
     return (
       <ul className={style.list}>
-        {contacts.map(contact => {
-          return (
-            <ContactItem
-              deleteContact={deleteContact}
-              key={contact.id}
-              contact={contact}
-            />
-          );
-        })}
+        {contacts &&
+          contacts.map(contact => {
+            return (
+              <ContactItem
+                deleteContact={deleteContact}
+                key={contact.id}
+                contact={contact}
+              />
+            );
+          })}
       </ul>
     );
   }

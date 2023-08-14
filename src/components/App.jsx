@@ -21,12 +21,12 @@ export class App extends Component {
 
   componentDidMount() {
     const contactByLocalStor = JSON.parse(localStorage.getItem(LOCAL__KEY));
-    this.setState({ contacts: contactByLocalStor });
+    if (contactByLocalStor) {
+      this.setState({ contacts: contactByLocalStor });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('prevprop', prevProps);
-    console.log('prevstate', prevState);
     if (this.state.contacts.length !== prevState.contacts.length) {
       localStorage.setItem(LOCAL__KEY, JSON.stringify(this.state.contacts));
     }
@@ -61,10 +61,12 @@ export class App extends Component {
     this.setState({ filter: event.target.value });
   };
   handleFilterContact = () => {
-    const normalizedFilter = this.state.filter.toLowerCase().trim();
-    return this.state.contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
+    if (this.state.contacts.length !== 0) {
+      const normalizedFilter = this.state.filter.toLowerCase().trim();
+      return this.state.contacts.filter(contact =>
+        contact.name.toLowerCase().includes(normalizedFilter)
+      );
+    }
   };
 
   deleteContact = id => {
